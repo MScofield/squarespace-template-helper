@@ -6,8 +6,8 @@
 
 import * as core from "../core";
 // Here's jQuery in case you need it. If you're just doing DOM manipulation, you
-// probably won't need it.
-// import $ from "js/lib/jquery/dist/jquery";
+// probably won't need it. Recommend using core.dom module to handle node caching.
+// import $ from "lib/jquery/dist/jquery";
 
 
 let $_jsElements = null;
@@ -34,7 +34,7 @@ const example = {
             // Use this method to separate your
             initElement();
         }
-        // console.log( "example module initialized" );
+        // console.log( "example module: initialized" );
     },
 
 
@@ -62,7 +62,7 @@ const example = {
      */
     unload () {
         // Typically unloading and tearing down isn't required unless you're
-        // using a completely AJAX Squarespace website that functions like
+        // using a complete AJAX Squarespace website that functions like
         // a single page application.
         this.teardown();
     },
