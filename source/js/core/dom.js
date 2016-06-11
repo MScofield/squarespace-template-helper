@@ -1,4 +1,6 @@
-import $ from "lib/jquery/dist/jquery";
+import $ from "properjs-hobo";
+// import $ from "jquery/dist/jquery.slim";
+// import $ from "jquery/dist/jquery";
 
 
 /**
