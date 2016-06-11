@@ -163,6 +163,13 @@ This project uses a post-build task that prefixes all of your code with the Auto
 This project uses an object literal module system that's bundled with [Webpack](https://webpack.github.io/). This system functions very similar to our modular Sass system mentioned above. The key component here is our [webpack.config.js](webpack.config.js) config file. This project uses the Webpack CLI, so the config file will show you what's going on. Our JavaScript entry point is the [source/js/app.js](source/js/app.js) file. All of your custom JavaScript should be separated into modules that relates to one specific use in your Squarespace website. The [app.js](app.js) should be configured to pull in all of your modules. I tried to leave comments in the project in order to help you build upon the example.
 
 
+
+#### Testing JavaScript hooking locally
+
+There's an [index.html](sandbox/index.html) file in the sandbox folder that links up your compiled JavaScript and CSS files. That's a great way to test JavaScript hooking methods prior to taking them into Squarespace. To use, simply open the index.html in your browser, open up your DevTools console, add some HTML hooks and refresh your browser.
+
+
+
 #### Using your custom JavaScript in Squarespace without Developer mode
 
 Webpack will compile all of your JavaScript into two single files, *template/scripts/app.js* and *template/scripts/app.min.js*. You should be able to upload this JavaScript file directly into Squarespace's file storage, then use Squarespace Code Injection to reference the file.
