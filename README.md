@@ -18,6 +18,7 @@ The idea here is simple, write all of your JavaScript and Sass, compile it,  upl
 
 ### Features
 
+* DOM manipulation with [properjs-hobo](https://github.com/properjs/hobo), optional support for jQuery 3.0.
 * Modular JavaScript structure that compiles to a single, minified file.
 * Precisely configured ESLint rules to force learning ES6 code habits.
 * JavaScript best practices: Compiled/bundled with Webpack, transpiled with Babel, linted with ESlint, documented with JSDoc syntax.
@@ -29,7 +30,7 @@ The idea here is simple, write all of your JavaScript and Sass, compile it,  upl
 
 ## Getting Started
 
-This workflow is meant to help you create and organize custom CSS and JavaScript for your Squarespace website. This project will output a compressed and minified CSS and JavaScript file that you can take into your website and use.
+This workflow is meant to help you create and organize custom CSS and JavaScript for your Squarespace website. It will output a compressed and minified CSS and JavaScript file that you can take into your website and use.
 
 ### Requirements
 
@@ -58,9 +59,18 @@ npm i
 
 You should now have all your dependencies installed into the `node_modules` folder.
 
-This project includes a custom build of jQuery to remove unnecessary jQuery methods that hardly anyone uses anymore. I've created a `postinstall` task that runs automatically as part of `npm i`.
+This project, by default, uses a super slim DOM library called [properjs-hobo](https://github.com/properjs/hobo). It's very similar to jQuery although excludes many dated methods that aren't used much anymore. It's also designed by [@kitajchuk](https://github.com/kitajchuk) with an "add what you need" approach versus jQuery's "remove what you don't need" approach. This keeps the file size insanely low.
 
-If installation was successful, you should now your `node_modules` folder, as well as a  `/lib/jquery` which contains the custom build of jQuery. *Note: you don't have to touch jQuery after this custom build. jQuery is pulled into your source JavaScript using imports located in each module that needs it.*
+But don't fret! jQuery 3.0 is also pulled in to the project as an unused dependency. If you need it, add it! The [dom.js](source/core/dom.js) module caches the high level site elements and is the only place you need to update it, unless you've added consider custom code. Simply comment out properjs-hobo import in favor of either the full jQuery library or jquery.slim (which removes ajax/effects methods).
+
+Also, make sure to adjust the [webpack.config.js](webpack.config.js) Expose Loader, which lets you expose hobo/jquery to the global window object. *Not a requirement unless you need to do that.*
+
+If installation was successful, you should now your `node_modules` folder complete with all dependencies.
+
+#### ProperJS Hobo Custom Builds
+By default, I've setup the npm `postinstall` script which runs your properjs-hobo build automatically after `npm i`. I've included a few common methods on top of its core methods. If you find that properjs-hobo is not supporting features you were used to on jQuery, [check the docs](https://github.com/properjs/hobo). You can add more methods by tweaking the postinstall script in [package.json](package.json) and re-running `npm run postinstall` (if you've already run `npm i` once).
+
+If hobo doesn't support what you need, considering submitting an [issue](https://github.com/properjs/hobo/issues) to that project.
 
 ### Managing Your Own Project on Git
 
