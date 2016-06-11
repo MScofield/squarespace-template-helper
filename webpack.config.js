@@ -34,7 +34,9 @@ dev = {
         root: path.resolve( __dirname ),
         packageMains: [
             "webpack",
+            "browserify",
             "web",
+            "hobo",
             "main"
         ]
     },
@@ -75,11 +77,17 @@ dev = {
                 }
             },
 
-            // Expose
+            // Expose ProperJS hobo
             {
-                test: /lib\/jquery\/dist.*\.js$/,
-                loader: "expose?$!expose?jQuery"
+                test: /(hobo|hobo.build)\.js$/,
+                loader: "expose?hobo"
             },
+
+            // Expose jQuery
+            // {
+            //     test: /jquery\/dist.*\.js$/,
+            //     loader: "expose?$!expose?jQuery"
+            // },
 
             // Sass
             {
