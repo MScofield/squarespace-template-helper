@@ -59,13 +59,14 @@ npm i
 
 You should now have all your dependencies installed into the `node_modules` folder.
 
+
+#### Using jQuery Instead of ProperJS Hobo
 This project, by default, uses a super slim DOM library called [properjs-hobo](https://github.com/properjs/hobo). It's very similar to jQuery although excludes many dated methods that aren't used much anymore. It's also designed by [@kitajchuk](https://github.com/kitajchuk) with an "add what you need" approach versus jQuery's "remove what you don't need" approach. This keeps the file size insanely low.
 
 But don't fret! jQuery 3.0 is also pulled in to the project as an unused dependency. If you need it, add it! The [dom.js](source/core/dom.js) module caches the high level site elements and is the only place you need to update it, unless you've added consider custom code. Simply comment out properjs-hobo import in favor of either the full jQuery library or jquery.slim (which removes ajax/effects methods).
 
-Also, make sure to adjust the [webpack.config.js](webpack.config.js) Expose Loader, which lets you expose hobo/jquery to the global window object. *Not a requirement unless you need to do that.*
+Also, make sure to adjust the [webpack.config.js](webpack.config.js) Expose Loader, which lets you expose hobo/jQuery to the global window object. *Not a requirement unless you need to do that.*
 
-If installation was successful, you should now your `node_modules` folder complete with all dependencies.
 
 #### ProperJS Hobo Custom Builds
 By default, I've setup the npm `postinstall` script which runs your properjs-hobo build automatically after `npm i`. I've included a few common methods on top of its core methods. If you find that properjs-hobo is not supporting features you were used to on jQuery, [check the docs](https://github.com/properjs/hobo). You can add more methods by tweaking the postinstall script in [package.json](package.json) and re-running `npm run postinstall` (if you've already run `npm i` once).
