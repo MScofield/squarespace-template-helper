@@ -61,27 +61,30 @@ You should now have all your dependencies installed into the `node_modules` fold
 
 
 #### Using jQuery Instead of ProperJS Hobo
-This project, by default, uses a super slim DOM library called [properjs-hobo](https://github.com/properjs/hobo). It's very similar to jQuery although excludes many dated methods that aren't used much anymore. It's also designed by [@kitajchuk](https://github.com/kitajchuk) with an "add what you need" approach versus jQuery's "remove what you don't need" approach. This keeps the file size insanely low.
+This project, by default, uses a super slim DOM library called [properjs-hobo](https://github.com/properjs/hobo). It's offers numerous utilities very similar to jQuery, it's designed by [@kitajchuk](https://github.com/kitajchuk) with an "add what you need" approach versus jQuery's "remove what you don't need" approach. This keeps the dependency for properjs-hobo insanely small.
 
-But don't fret! jQuery 3.0 is also pulled in to the project as an unused dependency. If you need it, add it! The [dom.js](source/core/dom.js) module caches the high level site elements and is the only place you need to update it, unless you've added consider custom code. Simply comment out properjs-hobo import in favor of either the full jQuery library or jquery.slim (which removes ajax/effects methods).
+But don't fret! jQuery 3.0 is also pulled in to the project as an unused dependency. If you need it, add it! The [dom.js](source/js/core/dom.js) module caches the high level site elements and is the only place you need to update it, unless you've added consider custom code. Simply comment out properjs-hobo import in favor of either the full jQuery library or jquery.slim (which removes ajax/effects methods).
 
 Also, make sure to adjust the [webpack.config.js](webpack.config.js) Expose Loader, which lets you expose hobo/jQuery to the global window object. *Not a requirement unless you need to do that.*
 
+> Note: Personally I'm at a point where I don't need jQuery anymore. ProperJS Hobo and vanilla JavaScript can do virtually anything you need for web projects.
+
 
 #### ProperJS Hobo Custom Builds
-By default, I've setup the npm `postinstall` script which runs your properjs-hobo build automatically after `npm i`. I've included a few common methods on top of its core methods. If you find that properjs-hobo is not supporting features you were used to on jQuery, [check the docs](https://github.com/properjs/hobo). You can add more methods by tweaking the postinstall script in [package.json](package.json) and re-running `npm run postinstall` (if you've already run `npm i` once).
+ProperJS Hobo supports custom builds to only add what you need in your project. By default, I've setup the npm `postinstall` script which runs your properjs-hobo build automatically after `npm i`. I've included a few common methods on top of its core methods. If you find that properjs-hobo is not supporting features you were used to on jQuery, [check the docs](https://github.com/properjs/hobo). You can add more methods by tweaking the postinstall script in [package.json](package.json) and re-running `npm run postinstall` (if you've already run `npm i` once).
 
 If hobo doesn't support what you need, considering submitting an [issue](https://github.com/properjs/hobo/issues) to that project.
+
 
 ### Managing Your Own Project on Git
 
 Just like any other project, when you `git clone` this project, the remote origin will be this Github repo. You'll probably want to just remove Git, re-initialize, and put the project in your own repo.
 
 ```shell
-# Remove Git
+# Remove the current instance of Git.
 rm -rf .git
 
-# Init
+# Initialize a new Git repo.
 git init
 ```
 
@@ -94,7 +97,7 @@ People always ask me what my tools of choice are. Here are my recommendations fo
 
 ### Text Editors
 
-SublimeText and Atom have great ecosystems. SublimeText is lightning fast, but a paid application. Atom is open source, but not quite as good as SublimeText in my opinion.
+SublimeText and Atom have great ecosystems. SublimeText is lightning fast, but a paid application. Atom is open source, but not quite as good as SublimeText in my opinion. I use SublimeText.
 
 * [SublimeText](https://squarefront.com/tools/sublimetext)
 * [Atom](https://squarefront.com/tools/atom)
@@ -167,7 +170,7 @@ This project uses an object literal module system that's bundled with [Webpack](
 
 #### Testing JavaScript hooking locally
 
-There's an [index.html](sandbox/index.html) file in the sandbox folder that links up your compiled JavaScript and CSS files. That's a great way to test JavaScript hooking methods prior to taking them into Squarespace. To use, simply open the index.html in your browser, open up your DevTools console, add some HTML hooks and refresh your browser.
+There's an [index.html](sandbox/index.html) file in the sandbox folder that links up your compiled JavaScript and CSS files. That's a great way to test JavaScript hooking methods prior to taking them into Squarespace. To use, simply open the index.html in your browser, open up your DevTools console, add some HTML hooks that match your custom JavaScript modules, and refresh your browser.
 
 
 
