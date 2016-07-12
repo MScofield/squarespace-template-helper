@@ -7,7 +7,7 @@
 import * as core from "../core";
 // Here's jQuery in case you need it. If you're just doing DOM manipulation, you
 // probably won't need it. Recommend using core.dom module to handle node caching.
-// import $ from "lib/jquery/dist/jquery";
+// import $ from "jquery/dist/jquery";
 
 
 let $_jsElements = null;
