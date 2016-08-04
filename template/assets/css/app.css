@@ -327,7 +327,8 @@
  * Here you can create a site-wide icon system that's easy to edit.
 *******************************************************************************/
 .icon:before {
-  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
   background-repeat: no-repeat;
   background-size: 3em 23em;
   content: '';

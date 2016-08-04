@@ -90,7 +90,6 @@
 	 * @classdesc Load the App application Class to handle everything.
 	 *
 	 */
-	
 	var App = function () {
 	  function App() {
 	    _classCallCheck(this, App);
@@ -211,7 +210,6 @@
 	     * @returns {Object} The fetched response.
 	     *
 	     */
-	
 	    fetch: function (_fetch) {
 	        function fetch(_x, _x2) {
 	            return _fetch.apply(this, arguments);
@@ -1679,13 +1677,46 @@
 /***/ function(module, exports) {
 
 	// shim for using process in browser
-	
 	var process = module.exports = {};
 	
-	// cached from whatever global is present so that test runners that stub it don't break things.
-	var cachedSetTimeout = setTimeout;
-	var cachedClearTimeout = clearTimeout;
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
 	
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+	
+	(function () {
+	    try {
+	        cachedSetTimeout = setTimeout;
+	    } catch (e) {
+	        cachedSetTimeout = function () {
+	            throw new Error('setTimeout is not defined');
+	        }
+	    }
+	    try {
+	        cachedClearTimeout = clearTimeout;
+	    } catch (e) {
+	        cachedClearTimeout = function () {
+	            throw new Error('clearTimeout is not defined');
+	        }
+	    }
+	} ())
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        return setTimeout(fun, 0);
+	    } else {
+	        return cachedSetTimeout.call(null, fun, 0);
+	    }
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        clearTimeout(marker);
+	    } else {
+	        cachedClearTimeout.call(null, marker);
+	    }
+	}
 	var queue = [];
 	var draining = false;
 	var currentQueue;
@@ -1710,7 +1741,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = cachedSetTimeout(cleanUpNextTick);
+	    var timeout = runTimeout(cleanUpNextTick);
 	    draining = true;
 	
 	    var len = queue.length;
@@ -1727,7 +1758,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    cachedClearTimeout(timeout);
+	    runClearTimeout(timeout);
 	}
 	
 	process.nextTick = function (fun) {
@@ -1739,7 +1770,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        cachedSetTimeout(drainQueue, 0);
+	        runTimeout(drainQueue);
 	    }
 	};
 	
@@ -1863,12 +1894,12 @@
 	
 	        // Merge Objects
 	    } else {
-	            for (i in arrow) {
-	                if (arrow.hasOwnProperty(i)) {
-	                    ret[i] = arrow[i];
-	                }
+	        for (i in arrow) {
+	            if (arrow.hasOwnProperty(i)) {
+	                ret[i] = arrow[i];
 	            }
 	        }
+	    }
 	
 	    return ret;
 	};
@@ -1901,6 +1932,7 @@
 	
 	// import $ from "jquery/dist/jquery.slim";
 	// import $ from "jquery/dist/jquery";
+	
 	
 	/**
 	 *
@@ -3446,7 +3478,6 @@
 	   *              init functions are bound to.
 	   *
 	   */
-	
 	  init: function init() {
 	    window.Squarespace.AFTER_BODY_LOADED = false;
 	    window.Squarespace.afterBodyLoad();
@@ -3494,7 +3525,8 @@
 	
 	// Here's jQuery in case you need it. If you're just doing DOM manipulation, you
 	// probably won't need it. Recommend using core.dom module to handle node caching.
-	// import $ from "lib/jquery/dist/jquery";
+	// import $ from "jquery/dist/jquery";
+	
 	
 	var $_jsElements = null;
 	
@@ -3502,13 +3534,14 @@
 	 *
 	 * @public
 	 * @module example
-	 * @description A nice description of this module.
+	 * @description An example hook module.
 	 *
 	 */
 	// This is a module using an object literal pattern.
 	// It's an easy way to organize your custom JavaScript into modules with methods.
 	// Since this system uses Webpack, you can reuse other modules and dependencies
 	// by importing them into the module.
+	
 	
 	var example = {
 	    /**
@@ -3519,10 +3552,8 @@
 	     * @description Method runs once when window loads.
 	     *
 	     */
-	
 	    init: function init() {
 	        if (this.isActive()) {
-	            // Use this method to separate your
 	            initElement();
 	        }
 	        // console.log( "example module: initialized" );
@@ -3591,7 +3622,7 @@
 	/**
 	 *
 	 * @private
-	 * @method execVideo
+	 * @method execElement
 	 * @memberof example
 	 * @description Handles execution of something.
 	 * @param {jQuery} $element The element.
@@ -3610,7 +3641,7 @@
 	/**
 	 *
 	 * @private
-	 * @method initElements
+	 * @method initElement
 	 * @memberof example
 	 * @description This module would do something with your elements.
 	 *

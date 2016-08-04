@@ -17,7 +17,7 @@ let $_jsElements = null;
  *
  * @public
  * @module example
- * @description A nice description of this module.
+ * @description An example hook module.
  *
  */
 const example = {
@@ -31,7 +31,6 @@ const example = {
      */
     init () {
         if ( this.isActive() ) {
-            // Use this method to separate your
             initElement();
         }
         // console.log( "example module: initialized" );
@@ -101,7 +100,7 @@ const example = {
 /**
  *
  * @private
- * @method execVideo
+ * @method execElement
  * @memberof example
  * @description Handles execution of something.
  * @param {jQuery} $element The element.
@@ -121,7 +120,7 @@ const execElement = function ( $element ) {
 /**
  *
  * @private
- * @method initElements
+ * @method initElement
  * @memberof example
  * @description This module would do something with your elements.
  *
